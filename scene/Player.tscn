@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://image/unicorn_r_2.png" type="Texture" id=1]
+[ext_resource path="res://image/unicorn_r_1.png" type="Texture" id=2]
+[ext_resource path="res://image/unicorn_r_3.png" type="Texture" id=3]
+[ext_resource path="res://image/Cecil_1.png" type="Texture" id=4]
+[ext_resource path="res://image/Bow.png" type="Texture" id=5]
+[ext_resource path="res://image/Arrow.png" type="Texture" id=6]
+[ext_resource path="res://scene/Cecil.gd" type="Script" id=7]
+[ext_resource path="res://scene/Player.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=1]
+resource_name = "default"
+length = 0.3
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.406126, 2, 1.62451 ),
+"update": 1,
+"values": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.52588e-05, -7.62939e-06 ), Vector2( 0, -1 ), Vector2( -1, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12.2145, 8.73277 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 5.3721
+height = 8.25952
+
+[node name="Player" type="Node2D"]
+script = ExtResource( 8 )
+
+[node name="Horse" type="KinematicBody2D" parent="."]
+position = Vector2( 1.52588e-05, -7.62939e-06 )
+
+[node name="Sprite" type="Sprite" parent="Horse"]
+position = Vector2( -4.95682, 0.1689 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Horse"]
+autoplay = "default"
+anims/default = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Horse"]
+visible = false
+scale = Vector2( 0.952467, 0.983339 )
+shape = SubResource( 2 )
+
+[node name="Cecil" type="RigidBody2D" parent="."]
+position = Vector2( 1.52588e-05, -6.00001 )
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Cecil"]
+position = Vector2( -4, 4 )
+texture = ExtResource( 4 )
+
+[node name="Bow" type="Sprite" parent="Cecil"]
+position = Vector2( 1.99998, -1.99999 )
+rotation = 6.28319
+texture = ExtResource( 5 )
+offset = Vector2( 5, 0 )
+
+[node name="Arrow_H" type="Sprite" parent="Cecil"]
+position = Vector2( 3.99998, -1.99999 )
+texture = ExtResource( 6 )
+offset = Vector2( 5, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cecil"]
+visible = false
+position = Vector2( 0, -4 )
+shape = SubResource( 3 )
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+position = Vector2( 1.52588e-05, -6.00001 )
+scale = Vector2( 0.47999, -1.95429e-05 )
+node_a = NodePath("../Cecil")
+node_b = NodePath("../Horse")
+stiffness = 64.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
