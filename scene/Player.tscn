@@ -95,7 +95,7 @@ scale = Vector2( 0.47999, -1.95429e-05 )
 node_a = NodePath("../Cecil")
 node_b = NodePath("../Horse")
 stiffness = 64.0
+damping = 3.56
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 zoom = Vector2( 0.5, 0.5 )
