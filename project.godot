@@ -8,11 +8,26 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://scene/Ster.gd"
+} ]
+_global_script_class_icons={
+"Mob": ""
+}
+
 [application]
 
 config/name="Mounted Archery Cecil"
 run/main_scene="res://scene/Main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1550
+window/size/height=872
 
 [importer_defaults]
 

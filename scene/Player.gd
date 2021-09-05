@@ -4,6 +4,7 @@ onready var anime = $AnimationPlayer
 onready var bow :Sprite = $Cecil/Bow
 onready var arrow_hand :Sprite = $Cecil/Arrow_H
 onready var arrow_hand_base_position = arrow_hand.global_position
+onready var power_bar = $TextureProgress
 
 var Arrow = preload('res://scene/Arrow.tscn')
 var arrow = null
@@ -17,11 +18,14 @@ export var gravity = 200
 var charge_time = false
 var ready_arrow = false
 
+func _ready() -> void:
+	power_bar.max_value = max_speed
+
 func _unhandled_input(event: InputEvent) -> void:
-	if is_instance_valid(arrow) and ready_arrow:
+	if ready_arrow:
 		if event.is_action_pressed('shot'):
-			anime.play('default')
 			charge_time = true
+			anime.play('default')
 			
 		elif event.is_action_released('shot'):
 			arrow.global_transform = bow.global_transform
@@ -39,10 +43,12 @@ func shoot(b) -> void:
 	b.fly()
 
 func _physics_process(delta: float) -> void:
-	if !is_instance_valid(arrow):
+	if ready_arrow == false:
+		ready_arrow = true
+		power_bar.value = arrow_speed
+		
 		anime.play('Draw_a_Bow')
 		yield(anime, "animation_finished" )
-		ready_arrow = true
 		arrow = Arrow.instance()
 		get_parent().add_child(arrow)
 		arrow._ready()
@@ -55,7 +61,8 @@ func _physics_process(delta: float) -> void:
 		arrow_hand.global_rotation = get_local_mouse_position().angle()
 		
 		if charge_time:
-			arrow_speed += 5
+			power_bar.value = arrow_speed
+			arrow_speed += 7
 			if max_speed < arrow_speed:
 				arrow_speed = max_speed
 			else:
@@ -64,3 +71,17 @@ func _physics_process(delta: float) -> void:
 		else:
 			arrow_speed = base_speed
 			arrow_hand.global_position = arrow_hand_base_position
+
+
+
+
+
+
+
+
+
+
+
+
+
+
