@@ -1,94 +1,213 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://bacground/bg_layer2.png" type="Texture" id=2]
-[ext_resource path="res://bacground/bg_layer1.png" type="Texture" id=3]
+[ext_resource path="res://image/Thintel.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://bacground/grounds-4.png" type="Texture" id=3]
 [ext_resource path="res://bacground/grounds-2.png" type="Texture" id=4]
 [ext_resource path="res://bacground/grounds-1.png" type="Texture" id=5]
 [ext_resource path="res://scene/Background.gd" type="Script" id=6]
 [ext_resource path="res://scene/Main.gd" type="Script" id=7]
 [ext_resource path="res://bacground/ground.png" type="Texture" id=8]
 [ext_resource path="res://scene/Ster.tscn" type="PackedScene" id=9]
+[ext_resource path="res://score_value.tres" type="Resource" id=10]
+[ext_resource path="res://image/Gugi-Regular.ttf" type="DynamicFontData" id=11]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 786, 94, 0, 0, 0, 0, 786, 444 )
+"points": PoolVector2Array( 0, 0, 0, 0, 644, 242, 0, 0, 0, 0, 458, 250, 0, 0, 0, 0, 448, 504, 0, 0, 0, 0, 642, 506, 0, 0, 0, 0, 646, 274, 0, 0, 0, 0, 644, 242 )
 }
 
-[node name="Main" type="Node"]
+[sub_resource type="DynamicFont" id=2]
+size = 44
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 45
+extra_spacing_char = 2
+font_data = ExtResource( 2 )
+
+[node name="Main" type="Node" groups=[
+"main",
+]]
 script = ExtResource( 7 )
 Mob = ExtResource( 9 )
+ScoreV = ExtResource( 10 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+light_mask = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 148.0
+margin_right = -760.0
+margin_bottom = -262.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ParallaxBackground" parent="TextureRect"]
+script = ExtResource( 6 )
+
+[node name="Sky2" type="ParallaxLayer" parent="TextureRect/Background"]
+light_mask = 0
+motion_scale = Vector2( 0.005, 1 )
+motion_mirroring = Vector2( 1024, 600 )
+
+[node name="Sprite" type="Sprite" parent="TextureRect/Background/Sky2"]
+position = Vector2( -2, 0 )
+scale = Vector2( 1, 1.07 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Sky3" type="ParallaxLayer" parent="TextureRect/Background"]
+light_mask = 0
+motion_scale = Vector2( 0.03, 1 )
+motion_mirroring = Vector2( 1024, 600 )
+
+[node name="Sprite" type="Sprite" parent="TextureRect/Background/Sky3"]
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Ground" type="ParallaxLayer" parent="TextureRect/Background"]
+light_mask = 3
+motion_scale = Vector2( 0.7, 1 )
+motion_mirroring = Vector2( 1024, 600 )
+
+[node name="Sprite" type="Sprite" parent="TextureRect/Background/Ground"]
+texture = ExtResource( 8 )
+centered = false
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 46, 504 )
+position = Vector2( 56, 572 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 392, 312 )
+position = Vector2( 394, 382 )
 scale = Vector2( 1.76, 1.44 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 
-[node name="Background" type="ParallaxBackground" parent="."]
-script = ExtResource( 6 )
-
-[node name="Sky0" type="ParallaxLayer" parent="Background"]
-motion_scale = Vector2( 0.2, 0.2 )
-motion_mirroring = Vector2( 2048, 2048 )
-
-[node name="Sprite" type="Sprite" parent="Background/Sky0"]
-texture = ExtResource( 3 )
-
-[node name="Sky1" type="ParallaxLayer" parent="Background"]
-visible = false
-motion_scale = Vector2( 0.2, 0.2 )
-motion_mirroring = Vector2( 2048, 2048 )
-
-[node name="Sprite" type="Sprite" parent="Background/Sky1"]
-texture = ExtResource( 2 )
-
-[node name="Sky2" type="ParallaxLayer" parent="Background"]
-motion_scale = Vector2( 0.005, 1 )
-motion_mirroring = Vector2( 1024, 600 )
-
-[node name="Sprite" type="Sprite" parent="Background/Sky2"]
-position = Vector2( 456, -352 )
-texture = ExtResource( 4 )
-
-[node name="Sky3" type="ParallaxLayer" parent="Background"]
-position = Vector2( -64, 0 )
-motion_scale = Vector2( 0.03, 1 )
-motion_mirroring = Vector2( 1024, 600 )
-
-[node name="Sprite" type="Sprite" parent="Background/Sky3"]
-position = Vector2( 520, 234 )
-texture = ExtResource( 5 )
-
-[node name="Ground" type="ParallaxLayer" parent="Background"]
-position = Vector2( 136, -252 )
-motion_scale = Vector2( 0.7, 1 )
-motion_mirroring = Vector2( 1024, 600 )
-
-[node name="Sprite" type="Sprite" parent="Background/Ground"]
-position = Vector2( -192, 182 )
-texture = ExtResource( 8 )
-centered = false
-
 [node name="MobPath" type="Path2D" parent="."]
+position = Vector2( -732, -48 )
 curve = SubResource( 1 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="MobPath"]
-position = Vector2( 786, 94 )
-rotation = 1.57077
+position = Vector2( 644, 242 )
+rotate = false
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
-one_shot = true
+autostart = true
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
+[node name="ComboTimer" type="Timer" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+modulate = Color( 0.517647, 0.517647, 0.517647, 0.752941 )
+self_modulate = Color( 0.45098, 0.45098, 0.45098, 0.572549 )
+show_behind_parent = true
+light_mask = 3
+z_as_relative = false
+color = Color( 1, 1, 1, 0.647059 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
+light_mask = 0
+margin_left = 624.0
+margin_top = 304.0
+margin_right = 924.0
+margin_bottom = 705.0
+mouse_filter = 2
+size_flags_horizontal = 15
+size_flags_vertical = 15
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ComboLabel" type="RichTextLabel" parent="CanvasLayer/VBoxContainer2"]
+margin_right = 300.0
+margin_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 49 )
+rect_clip_content = false
+mouse_filter = 2
+custom_fonts/normal_font = SubResource( 2 )
+custom_colors/default_color = Color( 1, 0.984314, 0.682353, 1 )
+bbcode_enabled = true
+bbcode_text = " d"
+text = " d"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BonusTime" type="RichTextLabel" parent="CanvasLayer/VBoxContainer2"]
+margin_top = 49.0
+margin_right = 300.0
+margin_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 30, 70 )
+rect_clip_content = false
+mouse_filter = 2
+custom_fonts/normal_font = SubResource( 3 )
+custom_colors/default_color = Color( 0.964706, 0.611765, 0.290196, 1 )
+bbcode_enabled = true
+text = " d"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+light_mask = 0
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+margin_right = 169.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+text = "TIME : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaxcomboLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 169.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 4 )
+text = "MAX COMBO : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 169.0
+margin_bottom = 104.0
+custom_fonts/font = SubResource( 4 )
+text = "SCORE : 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="ComboTimer" to="." method="_on_ComboTimer_timeout"]

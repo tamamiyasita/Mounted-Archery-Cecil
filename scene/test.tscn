@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scene/Ster.tscn" type="PackedScene" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Ster" parent="." instance=ExtResource( 1 )]
+position = Vector2( 460, 522 )
+
+[node name="BurstRange" parent="Ster/Range" index="0"]
+light_mask = 3
+
+[node name="Sprite" parent="Ster" index="2"]
+modulate = Color( 1.96785, 1.96785, 0.738681, 1 )
+position = Vector2( 0, 1.9357 )
+rotation = 3.04058
+scale = Vector2( 0.403215, 0.403215 )
+
+[node name="CPUParticles2D" parent="Ster" index="5"]
+emitting = false
+one_shot = true
+
+[node name="Light2D" parent="Ster" index="6"]
+texture_scale = 0.7808
+energy = 0.776397
+
+[editable path="Ster"]

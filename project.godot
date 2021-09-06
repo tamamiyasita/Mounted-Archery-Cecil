@@ -9,19 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "EndScore",
+"language": "GDScript",
+"path": "res://scene/Score.gd"
+}, {
 "base": "Area2D",
 "class": "Mob",
 "language": "GDScript",
 "path": "res://scene/Ster.gd"
 } ]
 _global_script_class_icons={
+"EndScore": "",
 "Mob": ""
 }
 
 [application]
 
 config/name="Mounted Archery Cecil"
-run/main_scene="res://scene/Main.tscn"
+run/main_scene="res://scene/Title.tscn"
 config/icon="res://icon.png"
 
 [display]
