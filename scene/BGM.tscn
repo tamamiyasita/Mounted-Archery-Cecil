@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://SFX/魔王魂  8bit13.ogg" type="AudioStream" id=1]
+
+[node name="BGM" type="AudioStreamPlayer"]
+stream = ExtResource( 1 )
+volume_db = -26.496
+autoplay = true

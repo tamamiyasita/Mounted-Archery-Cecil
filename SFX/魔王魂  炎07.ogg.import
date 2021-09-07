@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/魔王魂  炎07.ogg-b2618d11a26fb05d0bb8c6dc968d5194.oggstr"
+
+[deps]
+
+source_file="res://SFX/魔王魂  炎07.ogg"
+dest_files=[ "res://.import/魔王魂  炎07.ogg-b2618d11a26fb05d0bb8c6dc968d5194.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
