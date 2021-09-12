@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://image/Thintel.ttf" type="DynamicFontData" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://scene/Ster.tscn" type="PackedScene" id=9]
 [ext_resource path="res://score_value.tres" type="Resource" id=10]
 [ext_resource path="res://image/Gugi-Regular.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://bacground/grounds-5.png" type="Texture" id=12]
+[ext_resource path="res://scene/BigSter.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -30,20 +32,60 @@ size = 45
 extra_spacing_char = 2
 font_data = ExtResource( 2 )
 
+[sub_resource type="Animation" id=5]
+resource_name = "default"
+length = 50.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.3, 0, 20, 31.8, 60 ),
+"transitions": PoolRealArray( 1, 1, 2.54912, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 0.607843, 0.360784, 0.360784, 0.901961 ), Color( 1, 1, 1, 0.843137 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Sky2/Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 14.5, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.588235, 0.278431, 0.278431, 1 ) ]
+}
+
 [node name="Main" type="Node" groups=[
 "main",
 ]]
 script = ExtResource( 7 )
 Mob = ExtResource( 9 )
+B_Mob = ExtResource( 13 )
 ScoreV = ExtResource( 10 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="ParallaxBackground" parent="."]
+script = ExtResource( 6 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+light_mask = 3
+z_as_relative = false
+color = Color( 1, 1, 1, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+modulate = Color( 0.14902, 0.803922, 1, 0.658824 )
 light_mask = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 148.0
-margin_right = -760.0
-margin_bottom = -262.0
 mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
@@ -51,40 +93,46 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ParallaxBackground" parent="TextureRect"]
-script = ExtResource( 6 )
-
-[node name="Sky2" type="ParallaxLayer" parent="TextureRect/Background"]
+[node name="Sky2" type="ParallaxLayer" parent="Background"]
 light_mask = 0
-motion_scale = Vector2( 0.005, 1 )
+motion_scale = Vector2( 0.008, 1 )
 motion_mirroring = Vector2( 1024, 600 )
 
-[node name="Sprite" type="Sprite" parent="TextureRect/Background/Sky2"]
+[node name="Sprite" type="Sprite" parent="Background/Sky2"]
 position = Vector2( -2, 0 )
 scale = Vector2( 1, 1.07 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Sky3" type="ParallaxLayer" parent="TextureRect/Background"]
+[node name="Sky3" type="ParallaxLayer" parent="Background"]
 light_mask = 0
 motion_scale = Vector2( 0.03, 1 )
 motion_mirroring = Vector2( 1024, 600 )
 
-[node name="Sprite" type="Sprite" parent="TextureRect/Background/Sky3"]
+[node name="Sprite" type="Sprite" parent="Background/Sky3"]
 texture = ExtResource( 5 )
 centered = false
 
-[node name="Ground" type="ParallaxLayer" parent="TextureRect/Background"]
+[node name="Ground" type="ParallaxLayer" parent="Background"]
 light_mask = 3
 motion_scale = Vector2( 0.7, 1 )
 motion_mirroring = Vector2( 1024, 600 )
 
-[node name="Sprite" type="Sprite" parent="TextureRect/Background/Ground"]
+[node name="Sprite" type="Sprite" parent="Background/Ground"]
 texture = ExtResource( 8 )
 centered = false
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 56, 572 )
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+light_mask = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 394, 382 )
@@ -111,13 +159,8 @@ wait_time = 2.0
 
 [node name="ComboTimer" type="Timer" parent="."]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-modulate = Color( 0.517647, 0.517647, 0.517647, 0.752941 )
-self_modulate = Color( 0.45098, 0.45098, 0.45098, 0.572549 )
-show_behind_parent = true
-light_mask = 3
-z_as_relative = false
-color = Color( 1, 1, 1, 0.647059 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 56, 572 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -206,6 +249,12 @@ text = "SCORE : 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 5 )
+
+[node name="BigStar" type="Node" parent="."]
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

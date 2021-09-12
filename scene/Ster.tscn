@@ -5,8 +5,8 @@
 [ext_resource path="res://image/light.png" type="Texture" id=3]
 [ext_resource path="res://scene/Burst.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 8.33422
+[sub_resource type="CircleShape2D" id=8]
+radius = 28.0
 
 [sub_resource type="Animation" id=2]
 length = 0.3
@@ -47,6 +47,42 @@ tracks/2/keys = {
 "args": [  ],
 "method": "queue_free"
 } ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.143587 ),
+"update": 0,
+"values": [ Vector2( 0.455011, 0.455011 ), Vector2( 0.9, 0.9 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Light2D:energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.535887 ),
+"update": 0,
+"values": [ 1.27, 1.98 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Light2D:texture_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.59918, 2.23 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -124,6 +160,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 2.31, 0.73, 2.31 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Range/BurstRange:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="CanvasItemMaterial" id=4]
 render_priority = 5
@@ -182,7 +230,7 @@ position = Vector2( -1.49012e-08, 2.98023e-08 )
 scale = Vector2( 0.803236, 0.817157 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 8 )
 one_way_collision = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -194,10 +242,8 @@ anims/default = SubResource( 3 )
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 material = SubResource( 4 )
 use_parent_material = true
-emitting = false
 amount = 6
 lifetime = 0.2
-one_shot = true
 speed_scale = 0.2
 explosiveness = 1.0
 randomness = 0.39

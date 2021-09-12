@@ -15,7 +15,7 @@ var burst = null
 var velocity = Vector2(100,0)
 
 func _ready() -> void:
-	range_b.disabled = true
+	range_b.disabled = true	
 
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
@@ -34,7 +34,6 @@ func burst_on() ->void:
 		get_parent().add_child(burst)
 		burst.position = position
 		anime.play('burst')
-		sprite.hide()
 
 
 func _on_Ster_area_entered(area: Area2D) -> void:

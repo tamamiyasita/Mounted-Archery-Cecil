@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "B_Mob",
+"language": "GDScript",
+"path": "res://scene/BigSter.gd"
+}, {
 "base": "Resource",
 "class": "EndScore",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://scene/Ster.gd"
 } ]
 _global_script_class_icons={
+"B_Mob": "",
 "EndScore": "",
 "Mob": ""
 }

@@ -1,16 +1,19 @@
 extends Node
 
 export (PackedScene) var Mob
+export (PackedScene) var B_Mob
 export (Resource) var ScoreV
 
 onready var score_text:Label = $CanvasLayer/VBoxContainer/ScoreLabel
 onready var time_text:Label = $CanvasLayer/VBoxContainer/TimeLabel
 onready var max_combo_text:Label = $CanvasLayer/VBoxContainer/MaxcomboLabel
+onready var back_color :TextureRect = $TextureRect2
 
 onready var combo_text:RichTextLabel = $CanvasLayer/VBoxContainer2/ComboLabel
 onready var bonus_time:RichTextLabel = $CanvasLayer/VBoxContainer2/BonusTime
 
 onready var combo_timer:Timer = $ComboTimer
+onready var big_star :Node = $BigStar
 
 var time
 var score
@@ -36,6 +39,7 @@ func _physics_process(delta: float) -> void:
 		ScoreV.score = score
 		ScoreV.max_combo = max_combo
 		get_tree().change_scene("res://scene/GameOver.tscn")
+	
 
 
 func _on_StartTimer_timeout() -> void:
@@ -75,13 +79,16 @@ func _on_ScoreTimer_timeout() -> void:
 func _on_MobTimer_timeout() -> void:
 	pass # Replace with function body.
 	$MobPath/PathFollow2D.offset = randi()
-	var mob = Mob.instance() as Mob
-	add_child(mob)
-#	var direction = $MobPath/PathFollow2D.rotation + PI / 2
-	mob.position = $MobPath/PathFollow2D.global_position
-#	mob.rotation = direction
-#
-#	mob.liner_volecity
+	if time % 12 == 0:
+		var mob = B_Mob.instance() as B_Mob
+		if big_star.get_child_count() < 1:
+			big_star.add_child(mob)
+			mob.position = $MobPath/PathFollow2D.global_position	
+			
+	else:
+		var mob = Mob.instance() as Mob
+		add_child(mob)
+		mob.position = $MobPath/PathFollow2D.global_position	
 
 
 func _on_ComboTimer_timeout() -> void:
